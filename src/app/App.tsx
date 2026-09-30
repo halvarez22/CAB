@@ -15,8 +15,7 @@ import { useFlightAudio } from "../ui/audio/useFlightAudio";
 import { TutorDock } from "../ui/tutor/TutorDock";
 
 /**
- * Orquestador: FlightStore → aero-engine → vistas + audio + brand CAB + tutor (flag).
- * Skin glass: wrappers presentacionales. Túnel se desmonta en theory.
+ * Orquestador: FlightStore → aero-engine → vistas + audio + brand + piloto experto (IA 1.2).
  */
 export function App() {
   const view = useFlightStore((s) => s.view);
@@ -48,6 +47,8 @@ export function App() {
 
         <StatusBar aero={aero} />
 
+        <TutorDock aero={aero} />
+
         {view === "theory" ? (
           <div className="view-pane">
             <TheoryManual airfoil={airfoil} aero={aero} />
@@ -69,7 +70,6 @@ export function App() {
               </div>
             </div>
             <TelemetryStrip aero={aero} airfoil={airfoil} />
-            <TutorDock aero={aero} />
           </div>
         )}
 

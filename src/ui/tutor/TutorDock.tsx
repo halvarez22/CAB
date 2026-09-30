@@ -12,7 +12,6 @@ import { requestTutorExplain } from "./requestTutorExplain";
 import { TutorCTA } from "./TutorCTA";
 import { TutorPanel, type TutorPanelStatus } from "./TutorPanel";
 
-/** Cooldown UI tras 429 — alineado a ventana de rate limit (1 min). */
 const RATE_LIMIT_COOLDOWN_MS = 60_000;
 
 export interface TutorDockProps {
@@ -21,6 +20,9 @@ export interface TutorDockProps {
   enabled?: boolean;
 }
 
+/**
+ * Prompt visible (APO-IA-1.2): consulta obligatoria al piloto experto.
+ */
 export function TutorDock({ aero, fetchImpl, enabled }: TutorDockProps) {
   const show = enabled ?? isTutorUiEnabled();
   const [status, setStatus] = useState<TutorPanelStatus>("idle");
@@ -38,19 +40,20 @@ export function TutorDock({ aero, fetchImpl, enabled }: TutorDockProps) {
 
   const isRateLimited =
     rateLimitedUntil !== null && now < rateLimitedUntil;
+  const sanitizedPreview = sanitizeStudentQuestion(question);
   const overLimit = question.length > TUTOR_MAX_INPUT_LENGTH;
-  const submitDisabled = overLimit || isRateLimited;
+  const emptyQuestion = !sanitizedPreview;
+  const submitDisabled = emptyQuestion || overLimit || isRateLimited;
 
   const onExplain = useCallback(async () => {
-    if (submitDisabled) return;
+    if (submitDisabled || !sanitizedPreview) return;
     setStatus("loading");
     setData(null);
     setErrorCode(null);
     const snapshot = toAeroSnapshot(aero);
-    const sanitized = sanitizeStudentQuestion(question);
     const result = await requestTutorExplain(
       snapshot,
-      sanitized,
+      sanitizedPreview,
       fetchImpl,
     );
     if (result.ok) {
@@ -63,7 +66,7 @@ export function TutorDock({ aero, fetchImpl, enabled }: TutorDockProps) {
     }
     setErrorCode(result.code);
     setStatus("error");
-  }, [aero, fetchImpl, question, submitDisabled]);
+  }, [aero, fetchImpl, sanitizedPreview, submitDisabled]);
 
   const onClose = useCallback(() => {
     setStatus("idle");

@@ -111,32 +111,33 @@ export const COPY_ES = {
       "Al superar el ángulo crítico efectivo, CL cae y el estado de flujo pasa a pérdida. El valor crítico y la polar se leen del perfil versionado y del motor (incl. flaps).",
   },
   tutor: {
-    title: "Tutor didáctico CAB",
-    explainCta: "Explicar este régimen",
-    questionLabel: "Pregunta corta (opcional)",
+    title: "Consulta al piloto experto",
+    explainCta: "Consultar al piloto",
+    questionLabel: "Escribe tu pregunta",
     questionPlaceholder:
-      "Ej. ¿Por qué baja la eficiencia cerca de la pérdida?",
-    questionHint: "Máximo 200 caracteres. Sin HTML.",
-    loading: "Consultando al tutor…",
+      "Ej. ¿Qué pasa con la sustentación si aumento el ángulo de ataque?",
+    questionHint: "Máximo 200 caracteres. Preguntas sobre aerodinámica del laboratorio.",
+    questionRequired: "Escribe una pregunta para consultar al piloto.",
+    loading: "El piloto está respondiendo…",
     unavailable:
-      "Tutor no disponible; usa Manual CAB / telemetría.",
+      "Consulta no disponible por ahora; usa el Manual CAB o la telemetría.",
     unverifiable:
       "No pude verificar esa explicación; consulta el Manual CAB.",
     rateLimited:
       "Demasiadas consultas. Espera un momento e inténtalo de nuevo.",
     inputTooLong: "La pregunta supera el límite de 200 caracteres.",
-    close: "Cerrar explicación",
+    close: "Cerrar respuesta",
     labelTitulo: "Resumen",
     labelExplicacion: "Explicación",
     labelAlerta: "Alerta de seguridad",
     labelSiguiente: "Siguiente paso",
     disclaimer:
-      "Explicación didáctica asistida por IA. No sustituye al Manual CAB ni a procedimientos de aeronave certificada. Los números provienen del modelo del túnel.",
+      "Respuesta didáctica de un piloto experto asistido por IA. No sustituye al Manual CAB ni a procedimientos de aeronave certificada. Los números provienen del modelo del túnel.",
   },
   disclaimer:
     "Modelo didáctico 2D. No representa el performance de una aeronave certificada ni sustituye un túnel de viento físico o un FTD.",
   phaseNote:
-    "CAB + Glass cerrados. Tutor IA: I-A2 UI (feature flag VITE_TUTOR_ENABLED).",
+    "Tutor IA 1.2: prompt visible · piloto experto · conceptos del laboratorio.",
 } as const;
 
 /** Claves de descripción de cues (manifiesto → accesibilidad). */

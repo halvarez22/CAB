@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { App } from "../../src/app/App";
 import { TutorDock } from "../../src/ui/tutor/TutorDock";
 import { isTutorUiEnabled } from "../../src/ui/tutor/isTutorUiEnabled";
 import { useFlightStore } from "../../src/domain/flight-state";
@@ -9,23 +8,39 @@ import { COPY_ES } from "../../src/data/copy/es";
 import { computeAero } from "../../src/domain/aero-engine";
 import { getDefaultAirfoil } from "../../src/data/airfoils";
 
-describe("tutor UI flag (I-A2)", () => {
-  it("isTutorUiEnabled solo con VITE_TUTOR_ENABLED=true", () => {
-    expect(isTutorUiEnabled({ VITE_TUTOR_ENABLED: undefined })).toBe(false);
-    expect(isTutorUiEnabled({ VITE_TUTOR_ENABLED: "false" })).toBe(false);
+describe("tutor UI flag (APO-IA-1.2)", () => {
+  it("visible por defecto; solo se oculta con VITE_TUTOR_ENABLED=false", () => {
+    expect(isTutorUiEnabled({ VITE_TUTOR_ENABLED: undefined })).toBe(true);
     expect(isTutorUiEnabled({ VITE_TUTOR_ENABLED: "true" })).toBe(true);
+    expect(isTutorUiEnabled({ VITE_TUTOR_ENABLED: "false" })).toBe(false);
   });
 
-  it("App no monta CTA si el flag no está activo", () => {
-    useFlightStore.getState().resetToCruise();
-    useFlightStore.setState({ view: "tunnel", audioOn: false });
-    render(<App />);
-    expect(screen.queryByTestId("tutor-cta")).toBeNull();
-    expect(screen.queryByTestId("tutor-dock")).toBeNull();
+  it("prompt visible con enabled=true (CTA piloto)", () => {
+    const aero = computeAero(
+      { alphaDeg: 4, iasKt: 100, flapsDeg: 0 },
+      getDefaultAirfoil(),
+    );
+    render(<TutorDock aero={aero} enabled />);
+    expect(screen.getByTestId("tutor-dock")).toBeInTheDocument();
+    expect(screen.getByTestId("tutor-question")).toBeInTheDocument();
+    expect(screen.getByTestId("tutor-cta")).toHaveTextContent(
+      COPY_ES.tutor.explainCta,
+    );
+  });
+
+  it("oculta tutor si enabled=false (simula VITE_TUTOR_ENABLED=false)", () => {
+    const aero = computeAero(
+      { alphaDeg: 4, iasKt: 100, flapsDeg: 0 },
+      getDefaultAirfoil(),
+    );
+    const { container } = render(
+      <TutorDock aero={aero} enabled={false} />,
+    );
+    expect(container.querySelector("[data-testid=tutor-dock]")).toBeNull();
   });
 });
 
-describe("TutorDock — pregunta + loading → success (I-A3)", () => {
+describe("TutorDock — consulta piloto (I-A3 + 1.2)", () => {
   beforeEach(() => {
     useFlightStore.getState().resetToCruise();
   });
@@ -80,6 +95,15 @@ describe("TutorDock — pregunta + loading → success (I-A3)", () => {
     expect(screen.getByText(COPY_ES.tutor.disclaimer)).toBeInTheDocument();
   });
 
+  it("CTA deshabilitado sin pregunta", async () => {
+    const aero = computeAero(
+      { alphaDeg: 4, iasKt: 100, flapsDeg: 0 },
+      getDefaultAirfoil(),
+    );
+    render(<TutorDock aero={aero} enabled />);
+    expect(screen.getByTestId("tutor-cta")).toBeDisabled();
+  });
+
   it("rate_limited muestra copy y deshabilita pregunta", async () => {
     const user = userEvent.setup();
     const aero = computeAero(
@@ -95,6 +119,7 @@ describe("TutorDock — pregunta + loading → success (I-A3)", () => {
     );
 
     render(<TutorDock aero={aero} enabled fetchImpl={fetchImpl} />);
+    await user.type(screen.getByTestId("tutor-question"), "¿Qué es la pérdida?");
     await user.click(screen.getByTestId("tutor-cta"));
 
     await waitFor(() => {

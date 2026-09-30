@@ -3,16 +3,17 @@
 **Uso:** El agente implementador auto-marca lo que cree cumplido. **Qwen** valida o rechaza.  
 **Referencia:** `.cursor/rules/*` + `docs/APO-PLAN.md` + `docs/APO-ADDENDUM-v1.1.md` + `docs/APO-AUDIO-1.1.md` + `docs/APO-CAB-1.0.md`
 
-**Entrega / fase:** MVP + Audio + CAB + Glass + **IA — CIERRE TOTAL** (2026-09-30)  
-**Auditor Qwen:** MVP ✅ · Audio ✅ · CAB ✅ · GLASS ✅ · IA I-A1…I-A4 ✅ **CIERRE TOTAL**  
+**Entrega / fase:** MVP + Audio + CAB + Glass + IA 1.1 + **APO-IA-1.2** (prompt visible · piloto)  
+**Auditor Qwen:** MVP ✅ · Audio ✅ · CAB ✅ · GLASS ✅ · IA I-A1…I-A4 ✅ · **1.2 pendiente sello Qwen**  
 
 ---
 
 ## Veredicto final Qwen (resumen)
-- FDP / HRU / AAD / SQA / U-First / SSD / MCP: Pass  
-- Audio · CAB · Glass · **IA**: cierres totales 2026-09-30  
-- Suite: **100/100** · lint · build EXIT:0 · deuda 0 · violaciones 0 · secretos 0  
-- Código + skin + tutor: **listos para producción** (tutor detrás de `VITE_TUTOR_ENABLED`)  
+- FDP / HRU / AAD / SQA / U-First / SSD / MCP: Pass (1.1)  
+- Audio · CAB · Glass · **IA 1.1**: cierres totales 2026-09-30  
+- **IA 1.2:** prompt-first + piloto experto — implementado; sello Qwen pendiente  
+- Suite: ver nota post-1.2 · lint · build EXIT:0 · secretos 0  
+- Tutor: **visible por defecto** (ocultar solo con `VITE_TUTOR_ENABLED=false`)  
 
 ---
 
@@ -50,6 +51,7 @@
 - [x] I-A2 UI TutorPanel — **OK Qwen**
 - [x] I-A3 pregunta corta + sanitización — **OK Qwen**
 - [x] I-A4 evidencia de cierre — **OK Qwen 2026-09-30 · CIERRE TOTAL**
+- [ ] APO-IA-1.2 prompt visible + piloto experto — **implementado · pendiente sello Qwen**
 
 ---
 
@@ -117,11 +119,12 @@
 
 ---
 
-## Notas implementador — Post I-A4 (IA)
+## Notas implementador — Post I-A4 (IA) + 1.2
 
-- Tutor: contrato + `/api/tutor` + UI flag + pregunta corta sanitizada
-- Modelo vía `GROQ_MODEL` (demo: `openai/gpt-oss-20b`) · key solo server / `.env.local`
-- `pnpm test` → **100** · lint · build EXIT:0
+- Tutor 1.1: contrato + `/api/tutor` + pregunta sanitizada
+- Tutor 1.2: prompt obligatorio visible · CTA “Consultar al piloto” · `TUTOR_PROMPT_VERSION=1.2.0`
+- Flag: ON por defecto; solo `VITE_TUTOR_ENABLED=false` oculta UI
+- Modelo vía `GROQ_MODEL` · key solo server / `.env.local` (nunca git)
 - Dominio aero / polar / audio: **intacto**
 
 ---
