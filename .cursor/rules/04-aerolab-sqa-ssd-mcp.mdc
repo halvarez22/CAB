@@ -1,0 +1,31 @@
+---
+description: SQA, SSD y MCP — calidad, seguridad y uso seguro de IA en AEROLAB.
+globs: "**/*.{ts,tsx}", "**/*.{test,spec}.{ts,tsx}", "**/ai/**/*"
+alwaysApply: false
+---
+
+# SQA · SSD · MCP
+
+## SQA (mínimo para “listo”)
+1. **Unit:** `aero-engine` (CL(α), stall, flaps, L/D, unidades).
+2. **Integration:** cambio de params → telemetría + curva + FlowStatus.
+3. **Smoke/E2E:** carga · preset crucero · stall · reset.
+4. TypeScript estricto; sin `any` evasivo en dominio.
+
+Punto de referencia inicial a proteger (regresión):
+`α=+4°, IAS=100 KT, flaps=0°` → resultados dentro de tolerancia acordada en tests.
+
+## SSD
+- ❌ API keys (Gemini/LLM) en frontend o commits.
+- ✅ Env solo server-side si hay proxy IA.
+- Sanitizar texto de alumno antes de enviarlo a LLM.
+- No exponer paths internos ni secrets en errores de UI.
+
+## MCP (cuando exista tutor/IA)
+- System prompt fijo y delimitado (instructor de aerodinámica básica).
+- Contexto = JSON del motor (`alpha`, `cl`, `cd`, `ld`, `status`, …).
+- El modelo **explica**; **no inventa** magnitudes.
+- Salida JSON schema: `titulo`, `explicacion`, `alerta_seguridad`, `siguiente_paso`.
+
+## Auditoría Qwen
+Todo PR/entrega debe poder pasar checklist en `docs/QWEN-AUDIT-CHECKLIST.md`.

@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
+# Referencia HTML monolítica del cliente (no forma parte del build Vite)
+nueva version/
+nueva\ version/

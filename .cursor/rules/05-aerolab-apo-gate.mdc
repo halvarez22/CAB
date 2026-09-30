@@ -1,0 +1,28 @@
+---
+description: Gate APO — no implementar sin plan aprobado; formato de planes y handoff a Qwen.
+alwaysApply: true
+---
+
+# Gate APO + handoff Qwen
+
+## Antes de codear
+1. Diagnosticar (ciclo de vida + impacto).
+2. Redactar/actualizar `docs/APO-PLAN.md` (o sección del plan activo).
+3. Pedir **aprobación expresa** del usuario.
+4. Solo entonces implementar.
+
+## Formato mínimo de un Plan APO
+- Diagnóstico técnico
+- Alcance / fuera de alcance
+- Archivos/módulos a crear o tocar
+- Riesgos de regresión + tests
+- Criterios de aceptación
+- Checklist para auditoría Qwen
+
+## Después de codear (antes de “listo”)
+- Ejecutar tests del motor + smoke.
+- Completar auto-check FDP/HRU/AAD.
+- Dejar notas en `docs/QWEN-AUDIT-CHECKLIST.md` (ítems cubiertos / pendientes).
+
+## Prohibido
+Implementar “mientras tanto un fix rápido” sin APO cuando toca lógica de simulación, estado o contratos.

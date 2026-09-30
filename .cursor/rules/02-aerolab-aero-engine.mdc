@@ -1,0 +1,33 @@
+---
+description: Motor aerodinámico y FDP — datos parametrizados, sin magia en UI.
+globs: src/domain/**/*.{ts,tsx},src/data/**/*.{ts,json}
+alwaysApply: false
+---
+
+# HRU + FDP — Motor y datos
+
+## Fuente única de verdad
+- Polar / α crítico / efecto flaps → `src/data/airfoils/*.json` (o TS de datos).
+- Copy de regímenes (picado, crucero, pérdida) → `src/data/copy/`.
+- UI y Manual **leen** resultados del motor; no recalculan ni duplican constantes de negocio.
+
+## aero-engine
+- Puro, testeable, sin React/DOM.
+- Entrada: `FlightParams` + `AirfoilPolar`.
+- Salida: `AeroResult` + `FlowStatus` (`stable` | `near_stall` | `stall`).
+- Tolerancias de regresión documentadas en tests (puntos de referencia).
+
+## Prohibido
+```ts
+// ❌ BAD — hardcode en componente
+const CL = alpha * 0.1;
+if (alpha > 15.5) status = "stall";
+
+// ✅ GOOD — motor + datos
+const result = computeAero(params, airfoil);
+```
+
+## FDP checklist (antes de merge)
+- [ ] Números visibles = `AeroResult` / data versionada
+- [ ] “Vuelo seguro” no aparece en `stall`
+- [ ] Disclaimer didáctico presente en Manual/footer

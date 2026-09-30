@@ -1,0 +1,23 @@
+{
+  "condition": {
+    "alpha_deg": 4.0,
+    "IAS_KT": 100,
+    "flaps_deg": 0
+  },
+  "expected": {
+    "lift_N": 2389,
+    "drag_N": 154,
+    "cl": 0.67,
+    "cd": 0.043,
+    "l_over_d": 15.5,
+    "critical_alpha_deg": 15.5
+  },
+  "tolerances": {
+    "lift_rel": 0.015,
+    "drag_rel": 0.03,
+    "cl_abs": 0.01,
+    "cd_abs": 0.002,
+    "l_over_d_rel": 0.02,
+    "critical_alpha_abs_deg": 0.2
+  }
+}

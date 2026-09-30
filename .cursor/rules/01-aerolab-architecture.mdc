@@ -1,0 +1,37 @@
+---
+description: Arquitectura modular AEROLAB — dominios, orquestación y límites de archivo.
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# AAD — Arquitectura de dominios
+
+## Estructura objetivo
+```
+src/
+  app/                 # orquestación / rutas / layout
+  domain/
+    flight-state/      # α, IAS, flaps, pause, reset, presets
+    aero-engine/       # CL, CD, L, D, L/D, stall, FlowStatus
+    units/             # conversiones documentadas
+  data/
+    airfoils/          # naca2412.json (polar, crítico, meta)
+    copy/              # textos UI / regímenes / disclaimer
+  ui/
+    tunnel/            # canvas perfil + humo
+    vectors/           # L / D / R
+    controls/          # sliders, flaps, toggles
+    charts/            # CL vs α
+    telemetry/         # métricas
+    theory/            # Manual teórico
+  ai/                  # opcional — cliente MCP-safe (sin keys)
+```
+
+## Reglas
+- ❌ Calcular fuerzas en componentes de UI.
+- ❌ Un solo archivo “App.tsx” con física + SVG + charts + copy.
+- ✅ Importar `computeAero(params, airfoil)` desde `aero-engine`.
+- ✅ Si un archivo crece de forma inmanejable → parar, diagnóstico APO, pedir permiso para split.
+
+## Contratos tipados mínimos
+`FlightParams`, `AirfoilPolar`, `AeroResult`, `FlowStatus`.

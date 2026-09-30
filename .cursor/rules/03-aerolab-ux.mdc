@@ -1,0 +1,25 @@
+---
+description: U-First AEROLAB — UX de aula, frictionless y lenguaje de vuelo.
+globs: src/ui/**/*.{ts,tsx},src/app/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# U-First — Experiencia pedagógica
+
+## Lenguaje
+- Usar: Ángulo de ataque, Velocidad indicada (IAS), Flaps, Pérdida, Planeo.
+- Evitar: IDs internos, nombres de archivos de polar, jerga de implementación.
+
+## Frictionless (obligatorio)
+- Controles siempre visibles: **Pausar**, **Reset**, toggles Vectores/Humo.
+- Navegación **Túnel ↔ Manual teórico** con retorno explícito.
+- En stall: mensaje claro + acción (“Reducir α” o “Reset a crucero”).
+- Sin callejones sin salida tras presets o demos.
+
+## Aula / instructor
+- Contraste alto; estado de flujo legible a distancia.
+- Presets recomendados: Crucero · Ascenso · Demostrar pérdida.
+- Efecto “vivo” (humo/vectores) sin sacrificar claridad numérica.
+
+## Accesibilidad mínima
+Labels en controles, foco teclado en sliders/botones, no depender solo del color para stall.

@@ -1,0 +1,42 @@
+---
+description: Reglas inamovibles AEROLAB (APO, HRU, AAD, U-First, SQA, SSD, MCP, FDP). Aplicar siempre.
+alwaysApply: true
+---
+
+# AEROLAB — Reglas inamovibles
+
+Proyecto: **Túnel de Viento Didáctico** (Escuela de Vuelo & Tripulantes — Aerodinámica Básica).
+Auditoría externa prevista: **Qwen** revisará el código frente a estas reglas.
+
+## APO — Auditoría Profunda Obligatoria
+Prohibidos hotfixes ciegos. Antes de modificar lógica existente:
+1. Trazar ciclo de vida (quién llama, params, side-effects en telemetría/vectores/curva/estado).
+2. Garantizar zero regressions en flujos ya validados.
+3. Presentar **Plan APO** y esperar **aprobación expresa** del usuario antes de escribir código.
+
+## HRU — Cero hardcoding / cero regresiones / universalidad
+- Coeficientes, rangos α/IAS, flaps, copy de regímenes y perfiles → datos de dominio (`data/` / config), no magia en JSX.
+- Mismo `FlightState` alimenta Túnel, Manual, telemetría y curva.
+- Constantes de unidades (KT→m/s, N↔lbf) solo en módulos `units` documentados.
+
+## AAD — Anti-God-Object
+- Archivos >~800–1000 líneas → alerta APO y modularizar antes de seguir.
+- App/página solo orquesta; el motor calcula; la UI proyecta.
+- Dominios obligatorios: `flight-state`, `aero-engine`, `flow-visual`, `vector-layer`, `lift-curve`, `telemetry`, `theory-manual`, `copy/i18n`.
+
+## U-First — UX pedagógica
+- Lenguaje de vuelo, no IDs internos ni comandos técnicos.
+- Siempre salida clara: Reset, Pausar, volver Manual→Túnel, recuperación post-stall.
+- Presets de instructor opcionales (Crucero / Ascenso / Demostrar pérdida).
+
+## SQA
+TypeScript estricto. Unit del motor, integration estado→UI, smoke E2E. Nada “listo” sin tests verdes del motor + smoke.
+
+## SSD
+Sin API keys en cliente. Secrets solo en env server-side. Sanitizar input si hay IA. Disclaimer: modelo didáctico ≠ aeronave certificada.
+
+## MCP (si hay IA)
+System prompt delimitado. El LLM **explica** con JSON del `aero-engine`; **no inventa** CL/CD. Salida estructurada. Sin concatenar input de alumno en system prompt.
+
+## FDP — Fidelidad Didáctica Parametrizada (regla 8)
+Números en UI/Manual = mismo origen que el motor. Estado visual coherente con física (`stable` | `near_stall` | `stall`). Polares/perfiles versionados. Cambios pedagógicos pasan APO + tests de puntos de referencia.

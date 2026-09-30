@@ -1,0 +1,38 @@
+{
+  "profile": "NACA2412-mod",
+  "version": "1.1.0",
+  "source": "calibración sobre prototipo Gemini share 0dd7f089300a · 2026-09; flaps 0/10/20/30 APO-CAB C-A2",
+  "calibrated_at": "2026-09-29",
+  "reference_conditions": {
+    "alpha_deg": 4.0,
+    "IAS_KT": 100,
+    "flaps_deg": 0
+  },
+  "critical_alpha_deg": 15.5,
+  "reference_area_m2": 2.201,
+  "air_density_kg_m3": 1.225,
+  "near_stall_margin_deg": 2.0,
+  "units_note": "polar adimensional; fuerzas en N vía aero-engine + units",
+  "polar": [
+    { "alphaDeg": -6, "cl": -0.38, "cd": 0.028 },
+    { "alphaDeg": -2, "cl": 0.04, "cd": 0.018 },
+    { "alphaDeg": 0, "cl": 0.25, "cd": 0.016 },
+    { "alphaDeg": 2, "cl": 0.46, "cd": 0.022 },
+    { "alphaDeg": 4, "cl": 0.67, "cd": 0.043 },
+    { "alphaDeg": 6, "cl": 0.88, "cd": 0.055 },
+    { "alphaDeg": 8, "cl": 1.09, "cd": 0.072 },
+    { "alphaDeg": 10, "cl": 1.28, "cd": 0.095 },
+    { "alphaDeg": 12, "cl": 1.47, "cd": 0.125 },
+    { "alphaDeg": 14, "cl": 1.68, "cd": 0.165 },
+    { "alphaDeg": 15.5, "cl": 1.82, "cd": 0.22 },
+    { "alphaDeg": 16, "cl": 1.55, "cd": 0.28 },
+    { "alphaDeg": 18, "cl": 1.15, "cd": 0.38 },
+    { "alphaDeg": 20, "cl": 0.95, "cd": 0.45 }
+  ],
+  "flaps_deltas": {
+    "0": { "clAdd": 0, "cdAdd": 0, "criticalAlphaShiftDeg": 0 },
+    "10": { "clAdd": 0.22, "cdAdd": 0.015, "criticalAlphaShiftDeg": -0.6 },
+    "20": { "clAdd": 0.40, "cdAdd": 0.035, "criticalAlphaShiftDeg": -1.2 },
+    "30": { "clAdd": 0.55, "cdAdd": 0.055, "criticalAlphaShiftDeg": -1.5 }
+  }
+}
