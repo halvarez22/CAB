@@ -6,6 +6,9 @@ coverage
 .env
 .env.*
 !.env.example
+# Secretos locales / notas de API (nunca al repo)
+ApiKey*
+*Groq*CAB*.txt
 # Referencia HTML monolítica del cliente (no forma parte del build Vite)
 nueva version/
 nueva\ version/

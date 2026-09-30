@@ -3,18 +3,16 @@
 **Uso:** El agente implementador auto-marca lo que cree cumplido. **Qwen** valida o rechaza.  
 **Referencia:** `.cursor/rules/*` + `docs/APO-PLAN.md` + `docs/APO-ADDENDUM-v1.1.md` + `docs/APO-AUDIO-1.1.md` + `docs/APO-CAB-1.0.md`
 
-**Entrega / fase:** MVP + Audio On + CAB + **GLASS — CIERRE TOTAL** (2026-09-30)  
-**Auditor Qwen:** MVP ✅ · Audio ✅ · CAB ✅ · GLASS G-A1…G-A4 ✅ **CIERRE TOTAL**  
+**Entrega / fase:** MVP + Audio + CAB + Glass + **IA — CIERRE TOTAL** (2026-09-30)  
+**Auditor Qwen:** MVP ✅ · Audio ✅ · CAB ✅ · GLASS ✅ · IA I-A1…I-A4 ✅ **CIERRE TOTAL**  
 
 ---
 
 ## Veredicto final Qwen (resumen)
-- FDP / HRU / AAD / SQA / U-First: Pass  
-- Audio On A-1…A-6: Pass · cerrado 2026-09-30  
-- CAB C-A1…C-A6: Pass · cerrado 2026-09-30  
-- GLASS G-A1…G-A4: **APROBACIÓN DEFINITIVA E INCONDICIONAL** · cierre total 2026-09-30  
-- Suite: **75/75** · lint · build EXIT:0 · deuda técnica 0 · violaciones 0  
-- Código + skin: **listos para producción** · **GitHub/Vercel retenidos** por mandato humano  
+- FDP / HRU / AAD / SQA / U-First / SSD / MCP: Pass  
+- Audio · CAB · Glass · **IA**: cierres totales 2026-09-30  
+- Suite: **100/100** · lint · build EXIT:0 · deuda 0 · violaciones 0 · secretos 0  
+- Código + skin + tutor: **listos para producción** (tutor detrás de `VITE_TUTOR_ENABLED`)  
 
 ---
 
@@ -39,6 +37,19 @@
 - [x] G-A2 Glass chrome (túnel opaco protegido)
 - [x] G-A3 Theory + tipografía + motion + reduced-motion
 - [x] G-A4 Evidencia de cierre — **OK Qwen 2026-09-30 · CIERRE TOTAL**
+
+---
+
+## IA (APO-IA-1.0 / 1.1) — pre-código / decisión
+- [x] APO-IA-1.0 leído (humano)
+- [x] Veredicto Qwen APO-IA-1.0: **GO CONDICIONAL** (H-I1…H-I8)
+- [x] Addendum APO-IA-1.1 redactado (cierre hallazgos)
+- [x] Veredicto Qwen APO-IA-1.1: **GO definitivo** 2026-09-30
+- [x] Humano confirma veredicto 1.1 (liberación I-A1)
+- [x] I-A1 contrato + proxy + tests — **OK Qwen**
+- [x] I-A2 UI TutorPanel — **OK Qwen**
+- [x] I-A3 pregunta corta + sanitización — **OK Qwen**
+- [x] I-A4 evidencia de cierre — **OK Qwen 2026-09-30 · CIERRE TOTAL**
 
 ---
 
@@ -85,17 +96,18 @@
 ## F. SSD
 - [x] Sin API keys en cliente ni en git
 - [x] Sin secrets en logs/UI de error
-- [x] Si hay IA: input sanitizado y proxy server-side _(N/A v1 — ver docs/MCP-HOOK.md)_
+- [x] Si hay IA: input sanitizado y proxy server-side _(APO-IA I-A1…I-A3)_
 
-## G. MCP (N/A en v1 si no hay IA)
-- [x] N/A — gancho documentado en `docs/MCP-HOOK.md`
-- [x] El LLM no inventa CL/CD _(N/A runtime)_
+## G. MCP
+- [x] System prompt versionado (`src/data/tutor/system-prompt.ts`)
+- [x] El LLM explica snapshot del motor; no inventa CL/CD _(anti-números H-I1)_
 
 ## H. FDP (regla 8)
 - [x] Números del Manual/telemetría = `AeroResult` / data versionada _(shell telemetría desde motor)_
 - [x] `FlowStatus` coherente con UI (no “seguro” en stall)
 - [x] Disclaimer didáctico visible
 - [x] Cambio de polar versionado + tests actualizados _(v1.0.0 + fixtures)_
+- [x] Tutor: `AeroSnapshot` puro; `studentQuestion` fuera del snapshot
 
 ## I. Criterios MVP (si aplica la fase)
 - [x] Controles en vivo OK _(Fase 3)_
@@ -105,14 +117,12 @@
 
 ---
 
-## Notas implementador — Post G-A4 (GLASS)
+## Notas implementador — Post I-A4 (IA)
 
-- Skin: tokens glass + atmósfera + chrome `.glass-panel` + theory glass + Outfit/Source Sans 3
-- Túnel: `.tunnel__stage` opaco, sin `backdrop-filter` · badges régimen opacos
-- Motion: CSS only + `prefers-reduced-motion` · H-G1 transparency fallbacks
-- `pnpm test` → **75** · lint · build EXIT:0
-- Despliegue GitHub/Vercel: **retenido** por mandato humano
-- Dominio / polar / audio: **intacto**
+- Tutor: contrato + `/api/tutor` + UI flag + pregunta corta sanitizada
+- Modelo vía `GROQ_MODEL` (demo: `openai/gpt-oss-20b`) · key solo server / `.env.local`
+- `pnpm test` → **100** · lint · build EXIT:0
+- Dominio aero / polar / audio: **intacto**
 
 ---
 
@@ -122,9 +132,12 @@
 |-----------|----------|-------|--------|
 | — | Ninguno en cierre CAB | — | — |
 | — | Ninguno en cierre GLASS | — | — |
+| — | Ninguno en cierre IA | — | — |
 
 **Veredicto Qwen (cierre CAB C-A6):** ✅ APROBACIÓN DEFINITIVA, INCONDICIONAL Y CIERRE TOTAL  
 **Firma / fecha:** Qwen · 2026-09-30  
 **Veredicto Qwen (cierre GLASS G-A4):** ✅ APROBACIÓN DEFINITIVA, INCONDICIONAL Y CIERRE TOTAL DEL ADDENDUM GLASS  
 **Firma / fecha GLASS:** Qwen · 2026-09-30  
-**Deuda técnica:** 0 · **Violaciones reglas inamovibles:** 0 · **Estado:** listo para producción (deploy retenido)
+**Veredicto Qwen (cierre IA I-A4):** ✅ APROBACIÓN DEFINITIVA, INCONDICIONAL Y CIERRE TOTAL DEL CICLO IA  
+**Firma / fecha IA:** Qwen · 2026-09-30  
+**Deuda técnica:** 0 · **Violaciones reglas inamovibles:** 0 · **Estado:** listo para producción (tutor vía feature flag; env Groq en Vercel cuando el humano lo active)

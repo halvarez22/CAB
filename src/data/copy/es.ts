@@ -110,10 +110,33 @@ export const COPY_ES = {
     stallExplain:
       "Al superar el ángulo crítico efectivo, CL cae y el estado de flujo pasa a pérdida. El valor crítico y la polar se leen del perfil versionado y del motor (incl. flaps).",
   },
+  tutor: {
+    title: "Tutor didáctico CAB",
+    explainCta: "Explicar este régimen",
+    questionLabel: "Pregunta corta (opcional)",
+    questionPlaceholder:
+      "Ej. ¿Por qué baja la eficiencia cerca de la pérdida?",
+    questionHint: "Máximo 200 caracteres. Sin HTML.",
+    loading: "Consultando al tutor…",
+    unavailable:
+      "Tutor no disponible; usa Manual CAB / telemetría.",
+    unverifiable:
+      "No pude verificar esa explicación; consulta el Manual CAB.",
+    rateLimited:
+      "Demasiadas consultas. Espera un momento e inténtalo de nuevo.",
+    inputTooLong: "La pregunta supera el límite de 200 caracteres.",
+    close: "Cerrar explicación",
+    labelTitulo: "Resumen",
+    labelExplicacion: "Explicación",
+    labelAlerta: "Alerta de seguridad",
+    labelSiguiente: "Siguiente paso",
+    disclaimer:
+      "Explicación didáctica asistida por IA. No sustituye al Manual CAB ni a procedimientos de aeronave certificada. Los números provienen del modelo del túnel.",
+  },
   disclaimer:
     "Modelo didáctico 2D. No representa el performance de una aeronave certificada ni sustituye un túnel de viento físico o un FTD.",
   phaseNote:
-    "CAB C-A5: stall horn vía pipeline Audio On. Cierre C-A6 pendiente.",
+    "CAB + Glass cerrados. Tutor IA: I-A2 UI (feature flag VITE_TUTOR_ENABLED).",
 } as const;
 
 /** Claves de descripción de cues (manifiesto → accesibilidad). */

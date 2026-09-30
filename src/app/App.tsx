@@ -12,11 +12,11 @@ import { LiftCurveChart } from "../ui/charts/LiftCurveChart";
 import { TheoryManual } from "../ui/theory/TheoryManual";
 import { AudioToggle } from "../ui/audio/AudioToggle";
 import { useFlightAudio } from "../ui/audio/useFlightAudio";
+import { TutorDock } from "../ui/tutor/TutorDock";
 
 /**
- * Orquestador: FlightStore → aero-engine → vistas + audio + brand CAB.
- * Skin glass: solo wrappers presentacionales (APO-GLASS G-A1).
- * Túnel se desmonta en vista theory (evita RAF innecesario — AAD/perf).
+ * Orquestador: FlightStore → aero-engine → vistas + audio + brand CAB + tutor (flag).
+ * Skin glass: wrappers presentacionales. Túnel se desmonta en theory.
  */
 export function App() {
   const view = useFlightStore((s) => s.view);
@@ -69,6 +69,7 @@ export function App() {
               </div>
             </div>
             <TelemetryStrip aero={aero} airfoil={airfoil} />
+            <TutorDock aero={aero} />
           </div>
         )}
 
